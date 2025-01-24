@@ -4,19 +4,19 @@ from seahorse.prelude import *
 # Define your accounts and data structures
 # ------------------------------------------------------------------------------
 
-class KeyProviderAccount(Account):
+class EnergyProviderAccount(TokenAccount):
     # Stores information about the OpenAI key provider
     owner: Pubkey          # The owner of this account
     openai_api_key: str    # The published OpenAI API key
     allowed_models: list[str]  # List of allowed models for this key
     collateral_vault: u64  # Stores SOL tokens received when tokens are burned
 
-class EnergyTokenMint(Account):
+class EnergyTokenMint(TokenMint):
     # Mint authority and metadata for energy tokens
     authority: Pubkey
     # Additional attributes for the mint can be added here
 
-class UserEnergyAccount(Account):
+class EnergyTokenAccount(TokenAccount):
     # Stores how many energy tokens a user holds
     owner: Pubkey
     energy_balance: u64
@@ -58,7 +58,7 @@ def init_energy_token_mint(
 @instruction
 def create_user_energy_account(
     user: Signer,
-    user_energy_account: Empty[UserEnergyAccount],
+    user_energy_account: Empty[EnergyTokenAccount],
     energy_token_mint: EnergyTokenMint
 ):
     """
@@ -71,7 +71,7 @@ def create_user_energy_account(
 @instruction
 def convert_sol_to_energy(
     user: Signer,
-    user_energy_account: UserEnergyAccount,
+    user_energy_account: EnergyTokenAccount,
     energy_token_mint: EnergyTokenMint,
     amount_sol: u64
 ):
@@ -90,8 +90,8 @@ def convert_sol_to_energy(
 @instruction
 def provision_energy(
     user: Signer,
-    user_energy_account: UserEnergyAccount,
-    key_provider_account: KeyProviderAccount,
+    user_energy_account: EnergyTokenAccount,
+    key_provider_account: EnergyProviderAccount,
     requested_model: str,
     max_cost_sol: u64
 ):
@@ -118,8 +118,8 @@ def provision_energy(
 @instruction
 def consume_energy_and_pay_provider(
     user: Signer,
-    key_provider_account: KeyProviderAccount,
-    user_energy_account: UserEnergyAccount,
+    key_provider_account: EnergyProviderAccount,
+    user_energy_account: EnergyTokenAccount,
     actual_cost_sol: u64
 ):
     """
@@ -145,3 +145,55 @@ def consume_energy_and_pay_provider(
     # user_energy_account.energy_balance += leftover_energy
 
     # (Optional) Additional logic for minted "LM generation tokens" goes here.
+
+@instruction
+def process_request(
+    user: Signer,
+    user_token_account: EnergyTokenAccount,
+    key_provider_account: EnergyProviderAccount,
+    cost: u64
+):
+    # Vérifier que l'utilisateur a assez de jetons
+    assert user_token_account.energy_balance >= cost, "Solde insuffisant"
+    # Réduire le solde
+    user_token_account.energy_balance -= cost
+    # Répartition 70% / 30%
+    provider_share = (cost * 70) // 100
+    contract_creator_share = cost - provider_share
+    key_provider_account.collateral_vault += provider_share
+    # (Ici, stocker la part du créateur dans un autre compte, à implémenter)
+    # Utiliser la clé du key_provider_account pour répondre à la requête
+    # ...
+
+@instruction
+def buy_energy_tokens(
+    user: Signer,
+    user_token_account: EnergyTokenAccount,
+    lamports: u64
+):
+    # Logique pour convertir lamports en energy tokens
+    acquired_tokens = lamports  # Simplifié
+    user_token_account.energy_balance += acquired_tokens
+    # ...
+
+@instruction
+def sell_energy_tokens(
+    user: Signer,
+    user_token_account: EnergyTokenAccount,
+    amount: u64
+):
+    assert user_token_account.energy_balance >= amount, "Solde insuffisant"
+    user_token_account.energy_balance -= amount
+    # Convertir en lamports et envoyer à l'utilisateur
+    # ...
+
+@instruction
+def revoke_key_provider(
+    provider: Signer,
+    key_provider_account: EnergyProviderAccount
+):
+    # Révoquer la clé en la remplaçant par une valeur vide
+    assert provider.key() == key_provider_account.owner, "Non propriétaire"
+    key_provider_account.openai_api_key = ""
+    key_provider_account.allowed_models = []
+    # ...
