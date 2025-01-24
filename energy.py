@@ -1,4 +1,13 @@
+# Energy
+# Built with Seahorse v0.2.0
+#
+# On-chain, persistent tokenized energy
+
 from seahorse.prelude import *
+
+# This is your program's public key and it will update
+# automatically when you build the project.
+declare_id('EAk2FTUhjeRDx424mnrRJ9k3xCN5fPSMLt5smPYWWF4R')
 
 # ------------------------------------------------------------------------------
 # Define your accounts and data structures
