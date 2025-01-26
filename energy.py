@@ -12,19 +12,10 @@ declare_id('EAk2FTUhjeRDx424mnrRJ9k3xCN5fPSMLt5smPYWWF4R')
 # Define your accounts and data structures
 # ------------------------------------------------------------------------------
 
-# class AllowedModel:
-#     model_name: str
-#     allowed: bool
-
-# class TransformerData:
-#     allowed_models: List[AllowedModel]   # List of allowed models for those keys
-#     openai_hashd_apikey: str
-
 class Singularity(Account):
   energy_supply: u64
   mint: Pubkey
   owner: Pubkey
-#   max_withdraw: u64
   decimals: u8
   fee: u8
   bump_query: u64
@@ -35,7 +26,6 @@ class Singularity(Account):
 class Transformer(Account):
   owner: Pubkey
   vec_unit_gen: u64
-  # data: TransformerData
   pickle: str
 
 class Metabolizer(Account):
@@ -54,7 +44,7 @@ def initialize_token_mint(
   mint: Empty[TokenMint], 
   decimals: u8
   ):
-  mint = mint.init(
+  mint.init(
     payer = signer,
     seeds = ['initial-energy-conversion', signer],
     decimals = decimals,
