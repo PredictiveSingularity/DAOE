@@ -24,49 +24,72 @@ describe("Singularis", () => {
     // const ALLOWED_MODELS = ["model1", "model2"];
     // const AMOUNT_SOL = new anchor.BN(1000); // 1000 lamports (0.001 SOL)
   
-    it("Initializes the mint", async () => {
-      // vaultAccount = web3.Keypair.generate();
-      mintAccount = web3.Keypair.generate();
+    // it("Initializes the mint", async () => {
+    //   // vaultAccount = web3.Keypair.generate();
+    //   mintAccount = web3.Keypair.generate();
+    //   console.log(`MintAccount: ${mintAccount.publicKey}`);
+  
+    //   const txHash = await pg.program.methods
+    //     .initializeTokenMint(6)
+    //     .accounts({
+    //       // signer: pg.wallet.publicKey,
+    //       mint: mintAccount.publicKey,
+    //       // systemProgram: web3.SystemProgram.programId,
+    //     })
+    //     .signers([pg.wallet.publicKey])
+    //     .rpc();
+    //   console.log(`Use 'solana confirm -v ${txHash}' to see the logs`);
+  
+    //   await pg.connection.confirmTransaction(txHash);
+    //   // TODO: Fetch account et ajouter vos vérifications
+    // });
+  
+    it("Emergency", async () => {
+      const mintAccount = web3.Keypair.generate();
       console.log(`MintAccount: ${mintAccount.publicKey}`);
+      const singularityKeypair = web3.Keypair.generate();
+      console.log(`Singularity: ${singularityKeypair.publicKey}`);
+      const vaultAccount = web3.Keypair.generate();
+      console.log(`Singularity Account: ${vaultAccount.publicKey}`);
+      const userEnergyKeypair = web3.Keypair.generate();
+      console.log(`UserEnergyAccount: ${userEnergyKeypair.publicKey}`);
+      const metabolizerKeypair = web3.Keypair.generate();
+      console.log(`Metabolizer: ${metabolizerKeypair.publicKey}`);
+  
+      const signer = pg.wallet;
+      console.log(`Signer: ${signer.publicKey}`);
+  
+      const supply = new anchor.BN(1000000000000);
+      const decimals = 6; //new anchor.BN(6);
+      const fee = 30; // new anchor.BN(30);
+      const pickle = "test-pickle";
+  
+      console.log(`Supply: ${supply}`);
+      console.log(`Decimals: ${decimals}`);
+      console.log(`Fee: ${fee}`);
+      console.log(`Pickle: ${pickle}`);
   
       const txHash = await pg.program.methods
-        .initializeTokenMint()
+        .bigBang(supply, decimals, fee, pickle)
         .accounts({
-          signer: pg.wallet.publicKey,
+          signer: signer.publicKey,
           mint: mintAccount.publicKey,
-          decimals: 6,
+          signerAccount: userEnergyKeypair.publicKey,
+          singularity: singularityKeypair.publicKey,
+          singularityAccount: vaultAccount.publicKey,
+          signerMetabolizer: metabolizerKeypair.publicKey,
+          clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
         })
-        .signers([pg.wallet.publicKey])
+        .signers([signer.keypair])
         .rpc();
       console.log(`Use 'solana confirm -v ${txHash}' to see the logs`);
   
       await pg.connection.confirmTransaction(txHash);
-      // TODO: Fetch account et ajouter vos vérifications
+  
+      // const mint = await pg.program.account.tokenMint(mintAccount.publicKey);
+      // assert.ok(mint.owner.equals(pg.wallet.publicKey));
+      // assert.ok(mint.supply.eq(new anchor.BN(0)));
     });
-  
-    //   it("Big Bang", async () => {
-    //     const singularityKeypair = web3.Keypair.generate();
-    //     const userEnergyKeypair = web3.Keypair.generate();
-    //     const metabolizerKeypair = web3.Keypair.generate();
-  
-    //     const txHash = await pg.program.methods
-    //       .bigBang(new anchor.BN(1000000), new anchor.BN(6), new anchor.BN(5), "test-pickle")
-    //       .accounts({
-    //         signer: provider.wallet.publicKey,
-    //         signerAccount: userEnergyKeypair.publicKey,
-    //         mint: mintAccount.publicKey,
-    //         singularity: singularityKeypair.publicKey,
-    //         singularityAccount: vaultAccount.publicKey,
-    //         signerMetabolizer: metabolizerKeypair.publicKey,
-    //         clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
-    //       })
-    //       .signers([singularityKeypair, userEnergyKeypair, metabolizerKeypair])
-    //       .rpc();
-    //     console.log(`Use 'solana confirm -v ${txHash}' to see the logs`);
-  
-    //     await pg.connection.confirmTransaction(txHash);
-    //     // TODO: Fetch singularity account et ajouter vos vérifications
-    // });
   
     // it("Initializes key provider accounts", async () => {
     //   keyProviderAccount = web3.Keypair.generate();

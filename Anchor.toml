@@ -2,7 +2,9 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-energy = ""
+energy = "EAk2FTUhjeRDx424mnrRJ9k3xCN5fPSMLt5smPYWWF4R"
+[programs.devnet]
+energy = "EAk2FTUhjeRDx424mnrRJ9k3xCN5fPSMLt5smPYWWF4R"
 
 
 [registry]
