@@ -1,3 +1,4 @@
+// Usage: ts-node create-token-metadata.ts
 // This uses "@metaplex-foundation/mpl-token-metadata@2" to create tokens
 // import "dotenv/config";
 // import {
