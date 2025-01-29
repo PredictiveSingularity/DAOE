@@ -43,44 +43,54 @@ describe("Singularis", () => {
     //   await pg.connection.confirmTransaction(txHash);
     //   // TODO: Fetch account et ajouter vos vérifications
     // });
-  
+
     it("Emergency", async () => {
-      const mintAccount = web3.Keypair.generate();
-      console.log(`MintAccount: ${mintAccount.publicKey}`);
-      const singularityKeypair = web3.Keypair.generate();
-      console.log(`Singularity: ${singularityKeypair.publicKey}`);
-      const vaultAccount = web3.Keypair.generate();
-      console.log(`Singularity Account: ${vaultAccount.publicKey}`);
-      const userEnergyKeypair = web3.Keypair.generate();
-      console.log(`UserEnergyAccount: ${userEnergyKeypair.publicKey}`);
-      const metabolizerKeypair = web3.Keypair.generate();
-      console.log(`Metabolizer: ${metabolizerKeypair.publicKey}`);
+      
+      
+      const mintAccount = 'dotMhX2cAK52Nqb3Xha3T91HJ1hkBbwNTcoaitepVJc' // web3.Keypair.generate();
+      console.log(`MintAccount: ${mintAccount}`);
+      const mintAccountPubKey = new web3.PublicKey(mintAccount)
+      const vaultAccount = 'GdL6nnatszQNTH4xExt4rBw6bs5ZrR2irKn71SX6mcBY' // web3.Keypair.generate();
+      console.log(`Singularity Account: ${vaultAccount}`);
+      const vaultAccountPubKey = new web3.PublicKey(vaultAccount)
+      const [singularity] = web3.PublicKey.findProgramAddressSync(
+        [Buffer.from("0"), mintAccountPubKey.toBuffer()],
+        pg.program.programId
+      );
+      console.log(`Singularity: ${singularity}`);
+      
+      // const userEnergyKeypair = '' // web3.Keypair.generate();
+      // console.log(`UserEnergyAccount: ${userEnergyKeypair}`);
+      // const metabolizerKeypair = '' // web3.Keypair.generate();
+      // console.log(`Metabolizer: ${metabolizerKeypair}`);
   
       const signer = pg.wallet;
       console.log(`Signer: ${signer.publicKey}`);
   
-      const supply = new anchor.BN(1000000000000);
-      const decimals = 6; //new anchor.BN(6);
+      // const supply = new anchor.BN(1000000000000);
+      // const decimals = 6; //new anchor.BN(6);
       const fee = 30; // new anchor.BN(30);
-      const pickle = "test-pickle";
+      const pickle = "789c6b60a99da20700056201c4"; // {}
   
-      console.log(`Supply: ${supply}`);
-      console.log(`Decimals: ${decimals}`);
+      // console.log(`Supply: ${supply}`);
+      // console.log(`Decimals: ${decimals}`);
       console.log(`Fee: ${fee}`);
       console.log(`Pickle: ${pickle}`);
   
       const txHash = await pg.program.methods
-        .bigBang(supply, decimals, fee, pickle)
+        .emerge(fee, pickle)
         .accounts({
+          mint: mintAccountPubKey,
+          // signerAccount: userEnergyKeypair,
+          singularity: singularity,
+          singularityAccount: vaultAccountPubKey,
           signer: signer.publicKey,
-          mint: mintAccount.publicKey,
-          signerAccount: userEnergyKeypair.publicKey,
-          singularity: singularityKeypair.publicKey,
-          singularityAccount: vaultAccount.publicKey,
-          signerMetabolizer: metabolizerKeypair.publicKey,
-          clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
+          // signerMetabolizer: metabolizerKeypair,
+          // clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
+          // rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+          // systemProgram: anchor.web3.SystemProgram.programId,
         })
-        .signers([signer.keypair])
+        .signers([signer])
         .rpc();
       console.log(`Use 'solana confirm -v ${txHash}' to see the logs`);
   
