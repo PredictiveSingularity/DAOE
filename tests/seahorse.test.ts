@@ -46,7 +46,6 @@ describe("Singularis", () => {
 
     it("Emergency", async () => {
       
-      
       const mintAccount = 'dotMhX2cAK52Nqb3Xha3T91HJ1hkBbwNTcoaitepVJc' // web3.Keypair.generate();
       console.log(`MintAccount: ${mintAccount}`);
       const mintAccountPubKey = new web3.PublicKey(mintAccount)

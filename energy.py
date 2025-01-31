@@ -133,8 +133,8 @@ def emerge(
   singularity.decimals = decimals
   singularity.owner = signer.key()
   singularity.wallet = singularity_account.key()
-  singularity.bump_query = 0
-  singularity.bump_token = 0
+  singularity.bump_query: u64 = 0
+  singularity.bump_token: u64 = 0
   singularity.profit = 0
   singularity.fee = fee
   singularity.pickle = singularity_pickle
@@ -182,6 +182,20 @@ def improve(
   assert singularity.owner == signer.key(), 'You are not the owner of the Singularity account.'
   singularity.fee = fee
   singularity.pickle = pickle
+
+# Initialize a Token Account
+@instruction
+def welcome(
+  signer: Signer,
+  mint: TokenMint,
+  account: Empty[TokenAccount]
+  ):
+  account.init(
+    payer = signer,
+    seeds = ['1', mint, signer],
+    mint = mint,
+    authority = signer,
+  )
   
 # Initialize a Transformer
 @instruction
@@ -189,15 +203,15 @@ def transform(
   signer: Signer,
   mint: TokenMint,
   transformer: Empty[Transformer],
-  transformer_account: Empty[TokenAccount],
+  # transformer_account: Empty[TokenAccount],
   pickle: str,
   ):
-  transformer_account.init(
-    payer = signer,
-    seeds = ['1', mint, signer],
-    mint = mint,
-    authority = signer,
-  )
+  # transformer_account.init(
+  #   payer = signer,
+  #   seeds = ['1', mint, signer],
+  #   mint = mint,
+  #   authority = signer,
+  # )
   transformer = transformer.init(
     payer = signer,
     seeds = ['energy-transformer', signer]
@@ -220,16 +234,16 @@ def improve_transform(
 @instruction
 def metabolize(
   signer: Signer,
-  mint: TokenMint,
+  # mint: TokenMint,
   metabolizer: Empty[Metabolizer],
-  metabolizer_account: Empty[TokenAccount]
+  # metabolizer_account: Empty[TokenAccount]
   ):
-  metabolizer_account.init(
-    payer = signer,
-    seeds = ['1', mint, signer],
-    mint = mint,
-    authority = signer,
-  )
+  # metabolizer_account.init(
+  #   payer = signer,
+  #   seeds = ['1', mint, signer],
+  #   mint = mint,
+  #   authority = signer,
+  # )
   metabolizer = metabolizer.init(
     payer = signer,
     seeds = ['energy-metabolizer', signer]
