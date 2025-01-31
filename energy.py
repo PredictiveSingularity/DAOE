@@ -133,9 +133,9 @@ def emerge(
   singularity.decimals = decimals
   singularity.owner = signer.key()
   singularity.wallet = singularity_account.key()
-  singularity.bump_query: u64 = 0
-  singularity.bump_token: u64 = 0
-  singularity.profit = 0
+  singularity.bump_query = u64(0)
+  singularity.bump_token = u64(0)
+  singularity.profit = u64(0)
   singularity.fee = fee
   singularity.pickle = singularity_pickle
   print("...but in me there is also something else...")
@@ -214,7 +214,8 @@ def transform(
   # )
   transformer = transformer.init(
     payer = signer,
-    seeds = ['energy-transformer', signer]
+    seeds = ['energy-transformer', signer],
+    space = 82+36, # 82 bytes for the Transformer account, 36 bytes for the Transformer data structure
   )
   transformer.owner = signer.key()
   transformer.pickle = pickle
