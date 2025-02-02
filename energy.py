@@ -24,7 +24,7 @@ from seahorse.prelude import *
 
 # This is your program's public key and it will update
 # automatically when you build the project.
-declare_id('GZV1djmFC498d88SQ5B5tsJxpknBqTpRo1vJq9oNHPqb')
+declare_id('3oRPcDGRFgNUWivN69c42DiNWExTXn5VhrhfTJx72QeW')
 
 # ------------------------------------------------------------------------------
 # Definition of accounts and data structures
@@ -196,6 +196,7 @@ def welcome(
     mint = mint,
     authority = signer,
   )
+  print(f"Welcome: {signer.key()} can now hold 🗲 inside {account.key()}")
   
 # Initialize a Transformer
 @instruction
