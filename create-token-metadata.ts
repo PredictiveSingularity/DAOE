@@ -36,11 +36,11 @@ const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
 );
 
 // Subtitute in your token mint account
-const tokenMintAccount = new PublicKey("4EBXjfpGBhQGE2Ue5w8mEmTys31cgDU2FFGZ5ipV96Td");
+const tokenMintAccount = new PublicKey("EBMSDNFFFQwUf4rXP41A9dkXUutx4BCRYkeNVBnCkEmH");
 
 const metadataData = {
-  name: "Energy",
-  symbol: "🗲",
+  name: "⚡ Energy",
+  symbol: "⚡",
   // Arweave / IPFS / Pinata etc link using metaplex standard for off-chain data
   uri: "https://raw.githubusercontent.com/PredictiveSingularity/DAOE/refs/heads/master/metadata/metadata.json",
   sellerFeeBasisPoints: 0,

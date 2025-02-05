@@ -4,3 +4,7 @@ emc2e5K3j1zskPSFs9yQLrt1Ga9LVJDmgj6GugL4q6A.json
 __pycache__/
 node_modules/
 package-lock.json
+PAPER.aux
+PAPER.log
+PAPER.pdf
+PAPER.synctex.gz

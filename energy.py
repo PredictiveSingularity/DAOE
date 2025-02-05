@@ -93,7 +93,7 @@ def emerge(
   # assert mint.key() == singularity_account.mint(), 'Energy\'s mint must match the Singularity account mint.'
   # assert singularity_account.key() == signer.key(), 'The Singularity account must have the same owner as the signer.'
   # assert singularity_account.amount() >= (mint.supply() * 16 // 100), 'Singularity account must have at least 16% of the energy supply.'
-  supply: u64 = energy_supply * 10 ^ decimals
+  supply: u64 = energy_supply * 10 ** decimals
   timestamp: i64 = clock.unix_timestamp()
   singularity_pickle: str = '789c6b60a99da20700056201c4' # {}
   transformer_pickle: str = '789c6b60a99da20700056201c4' # {}
@@ -291,8 +291,8 @@ def consume(
   assert metabolizer_account.mint() == mint.key(), 'The Token account you are trying to consume does not match the metabolizer\'s mint'
   assert singularity_account.mint() == mint.key(), 'The Token account you are trying to consume does not match the singularity\'s mint'
   
-  assert transformer.owner == transformer_account.key(), 'The Transformer account you are trying to consume from does not match the transformer\'s owner'
-  assert metabolizer.owner == metabolizer_account.key(), 'The Metabolizer account you are trying to consume from does not match the metabolizer\'s owner'
+  # assert transformer.owner == transformer_account.owner, 'The Transformer account you are trying to consume from does not match the transformer\'s owner'
+  # assert metabolizer.owner == metabolizer_account.owner, 'The Metabolizer account you are trying to consume from does not match the metabolizer\'s owner'
   
   assert n > 0, 'You must consume at least 1 unit of energy provision.'
   assert metabolizer.reserve >= n, 'The Metabolizer account does not have enough energy provision to consume.'
@@ -318,7 +318,7 @@ def consume(
     authority = signer,
     to = transformer_account,
     amount = amount,
-    signer = ['energy-conversion', mint, transformer_account, timestamp]
+    # signer = ['energy-conversion', mint, transformer_account, timestamp]
   )
   
   # Send the rest of the provision to the Metabolizer account
@@ -327,7 +327,7 @@ def consume(
       authority = signer,
       to = metabolizer_account,
       amount = rem,
-      signer = ['energy-conversion', mint, metabolizer_account, timestamp]
+      # signer = ['energy-conversion', mint, metabolizer_account, timestamp]
   )
   
   # Close the transaction
@@ -357,6 +357,6 @@ def withdraw(
     authority = signer,
     to = signer_account,
     amount = n, #lamports
-    signer = ['energy-conversion', mint, signer_account, timestamp]
+    # signer = ['energy-conversion', mint, signer_account, timestamp]
   )
   singularity.profit -= n
