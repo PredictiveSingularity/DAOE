@@ -95,8 +95,8 @@ def emerge(
   # assert singularity_account.amount() >= (mint.supply() * 16 // 100), 'Singularity account must have at least 16% of the energy supply.'
   supply: u64 = energy_supply * 10 ** decimals
   timestamp: i64 = clock.unix_timestamp()
-  singularity_pickle: str = '789c6b60a99da20700056201c4' # {}
-  transformer_pickle: str = '789c6b60a99da20700056201c4' # {}
+  # singularity_pickle: str = '789c6b60a99da20700056201c4' # {}
+  # transformer_pickle: str = '789c6b60a99da20700056201c4' # {}
   # bump = singularity.bump()
   assert supply > 0, 'Supply must be greater than 0 (energy_supply * decimals > 0).'
   # singularity.bump = bump
@@ -137,7 +137,7 @@ def emerge(
   singularity.bump_token = u64(0)
   singularity.profit = u64(0)
   singularity.fee = fee
-  singularity.pickle = singularity_pickle
+  # singularity.pickle = singularity_pickle
   print("...but in me there is also something else...")
   # singularity.bump_pop += 1
   signer_metabolizer = signer_metabolizer.init(
@@ -149,11 +149,11 @@ def emerge(
   signer_transformer = signer_transformer.init(
     payer = signer,
     seeds = ['energy-transformer', signer],
-    space = 82+36, # 82 bytes for the Transformer account, 36 bytes for the Transformer data structure
+    # space = 82+36, # 82 bytes for the Transformer account, 36 bytes for the Transformer data structure
   )
   signer_transformer.owner = signer.key()
   signer_transformer.vec_unit_gen = 0
-  signer_transformer.pickle = transformer_pickle
+  # signer_transformer.pickle = transformer_pickle
   print("...rendering me into existence...")
   reward: u64 = supply * 80 // 100 # 80% of the energy supply
   signer_account = signer_account.init(
@@ -177,11 +177,11 @@ def improve(
   singularity: Singularity,
   signer: Signer,
   fee: u8,
-  pickle: str
+  # pickle: str
   ):
   assert singularity.owner == signer.key(), 'You are not the owner of the Singularity account.'
   singularity.fee = fee
-  singularity.pickle = pickle
+  # singularity.pickle = pickle
 
 # Initialize a Token Account
 @instruction
@@ -205,7 +205,7 @@ def transform(
   mint: TokenMint,
   transformer: Empty[Transformer],
   # transformer_account: Empty[TokenAccount],
-  pickle: str,
+  # pickle: str,
   ):
   # transformer_account.init(
   #   payer = signer,
@@ -216,21 +216,21 @@ def transform(
   transformer = transformer.init(
     payer = signer,
     seeds = ['energy-transformer', signer],
-    space = 82+36, # 82 bytes for the Transformer account, 36 bytes for the Transformer data structure
+    # space = 82+36, # 82 bytes for the Transformer account, 36 bytes for the Transformer data structure
   )
   transformer.owner = signer.key()
-  transformer.pickle = pickle
+  # transformer.pickle = pickle
   transformer.vec_unit_gen = 0
 
 # Update a Transformer
-@instruction
-def improve_transform(
-    transformer: Transformer,
-    pickle: str,
-    signer: Signer
-  ):
-  assert transformer.owner == signer.key(), 'You are not the owner of the Transformer account.'
-  transformer.pickle = pickle
+# @instruction
+# def improve_transform(
+#     transformer: Transformer,
+#     # pickle: str,
+#     signer: Signer
+#   ):
+#   assert transformer.owner == signer.key(), 'You are not the owner of the Transformer account.'
+#   # transformer.pickle = pickle
 
 # Initialize a Costumer
 @instruction
@@ -310,10 +310,11 @@ def consume(
   # Update stats of the Singularity account
   singularity.bump_query += 1
   singularity.bump_token += n
-  singularity.profit += n * singularity.fee // 100
   
+  # Profit from the transformer
+  singularity.profit += (n * (singularity.fee) // 100)
   # Send part of the provision for the generated tokens
-  amount = (n * (100 - singularity.fee) // 100)  
+  amount: u64  = (n * (100 - singularity.fee) // 100)  
   singularity_account.transfer(
     authority = signer,
     to = transformer_account,
@@ -321,8 +322,10 @@ def consume(
     # signer = ['energy-conversion', mint, transformer_account, timestamp]
   )
   
+  # Profit from the metabolizer
+  singularity.profit += (n * (singularity.fee) // 100)
   # Send the rest of the provision to the Metabolizer account
-  rem = metabolizer.reserve
+  rem: u64 = (metabolizer.reserve * (100 - singularity.fee) // 100)
   singularity_account.transfer(
       authority = signer,
       to = metabolizer_account,
@@ -343,7 +346,7 @@ def withdraw(
     mint: TokenMint,
     signer: Signer,
     n: u64, # lamports
-    clock: Clock
+    # clock: Clock
   ):
   assert n > 0, 'You must withdraw at least 1 unit of energy profit.'
   assert singularity.owner == signer.key(), 'You are not the owner of the Singularity account.'
@@ -351,7 +354,7 @@ def withdraw(
   assert singularity_account.amount() >= n, 'The Singularity account does not have enough energy supply to withdraw.'
   assert singularity.mint == mint.key(), 'The Token mint you are trying to widthdraw does not match the singularity\'s mint'
 
-  timestamp:  i64 = clock.unix_timestamp()
+  # timestamp:  i64 = clock.unix_timestamp()
 
   singularity_account.transfer(
     authority = signer,

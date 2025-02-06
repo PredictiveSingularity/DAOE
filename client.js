@@ -18,5 +18,5 @@ class Singularity {
     }
 }
 
-singularity = new Singularity('https://api.devnet.solana.com');
+const singularity = new Singularity('https://api.devnet.solana.com');
 console.log(singularity.weight(singularity.account));

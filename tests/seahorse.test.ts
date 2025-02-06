@@ -78,7 +78,7 @@ describe("Singularis", () => {
 
     const supply = new anchor.BN(1000000000000);
     const decimals = 6; //new anchor.BN(6);
-    const fee = 20; // new anchor.BN(30);
+    const fee = 10; // new anchor.BN(30);
     // const pickle = "789c6b60a99da20700056201c4"; // {}
 
     console.log(`Supply: ${supply}`);
