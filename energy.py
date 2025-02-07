@@ -24,7 +24,7 @@ from seahorse.prelude import *
 
 # This is your program's public key and it will update
 # automatically when you build the project.
-declare_id('AX9GBXQEthuLMZM1otSLK5EuCJVVpSVzYGqcLa3Vf6i6')
+declare_id('Div1cnrFizaj4B86QwDAHd2KBHVRjzs7YNyGSW8DquQC')
 
 # ------------------------------------------------------------------------------
 # Definition of accounts and data structures
