@@ -23,7 +23,7 @@ export function loadWalletKey(keypairFile:string): Keypair {
     return loaded;
   }
 
-const user = loadWalletKey("bossS7QLVNAmJgnTts82mANU64PNSAvwmXma7ATBFmu.json");
+const user = loadWalletKey("emc2e5K3j1zskPSFs9yQLrt1Ga9LVJDmgj6GugL4q6A.json");
 
 const connection = new Connection(clusterApiUrl("devnet"));
 
@@ -36,10 +36,10 @@ const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
 );
 
 // Subtitute in your token mint account
-const tokenMintAccount = new PublicKey("6kMYgotRgtZ2wfVE1ZyL3XM65ZXNDd2M78z4Y3jmep3Z");
+const tokenMintAccount = new PublicKey("zneC1Zp1Sd2ufHjJuVUUEhsLm24XsH2LtPaMQZsmUvM");
 
 const metadataData = {
-  name: "⚡ Energy",
+  name: "Energy",
   symbol: "⚡",
   // Arweave / IPFS / Pinata etc link using metaplex standard for off-chain data
   uri: "https://raw.githubusercontent.com/PredictiveSingularity/DAOE/refs/heads/master/metadata/metadata.json",

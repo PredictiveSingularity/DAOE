@@ -23,7 +23,7 @@ export function loadWalletKey(keypairFile: string): Keypair {
   return loaded;
 }
 
-const payer = loadWalletKey("bossS7QLVNAmJgnTts82mANU64PNSAvwmXma7ATBFmu.json");
+const payer = loadWalletKey("emc2e5K3j1zskPSFs9yQLrt1Ga9LVJDmgj6GugL4q6A.json");
 
 const connection = new Connection(clusterApiUrl("devnet"));
 
@@ -37,7 +37,7 @@ const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
 
 // Subtitute in your token mint account
 const tokenMintAccount = new PublicKey(
-  "6kMYgotRgtZ2wfVE1ZyL3XM65ZXNDd2M78z4Y3jmep3Z"
+  "zneC1Zp1Sd2ufHjJuVUUEhsLm24XsH2LtPaMQZsmUvM"
 );
 
 const metadataPDAAndBump = PublicKey.findProgramAddressSync(
