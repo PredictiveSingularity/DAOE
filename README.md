@@ -2,10 +2,10 @@
 
 **Network**: [https://api.devnet.solana.com](https://api.devnet.solana.com)
 
-**Program**: [Open Explorer](https://solscan.io/account/3oRPcDGRFgNUWivN69c42DiNWExTXn5VhrhfTJx72QeW?cluster=devnet)
+**Program**: [Open Explorer](https://solscan.io/account/AX9GBXQEthuLMZM1otSLK5EuCJVVpSVzYGqcLa3Vf6i6?cluster=devnet)
 
 ```txt
-3oRPcDGRFgNUWivN69c42DiNWExTXn5VhrhfTJx72QeW
+AX9GBXQEthuLMZM1otSLK5EuCJVVpSVzYGqcLa3Vf6i6
 ```
 
 **Token Program**: [Open Explorer](https://solscan.io/account/TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA?cluster=devnet)
@@ -14,19 +14,19 @@
 TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
 ```
 
-**🗲 Energy Mint**: [Open Explorer](https://solscan.io/account/EBMSDNFFFQwUf4rXP41A9dkXUutx4BCRYkeNVBnCkEmH?cluster=devnet)
+**🗲 Energy Mint**: [Open Explorer](https://solscan.io/account/6kMYgotRgtZ2wfVE1ZyL3XM65ZXNDd2M78z4Y3jmep3Z?cluster=devnet)
 
 ```txt
-EBMSDNFFFQwUf4rXP41A9dkXUutx4BCRYkeNVBnCkEmH
+6kMYgotRgtZ2wfVE1ZyL3XM65ZXNDd2M78z4Y3jmep3Z
 ```
 
-**Singularity**: [Open Explorer](https://solscan.io/account/BCLb5xH7BK6nUcMmCKcDFtJzMYgZA8kB42gkpQmwsNdN?cluster=devnet)
+**Singularity**: [Open Explorer](https://solscan.io/account/2gTP4JdedzvxDG6JhbU2nNTroTqWiJiLjUPGh9fjxKzB?cluster=devnet)
 
 ```txt
-BCLb5xH7BK6nUcMmCKcDFtJzMYgZA8kB42gkpQmwsNdN
+2gTP4JdedzvxDG6JhbU2nNTroTqWiJiLjUPGh9fjxKzB
 ```
 
-**Singularity 🗲 Energy Account**: [Open Explorer](https://solscan.io/account/uyCaoEhfvuodu9QMy2Z3vBs5eZhG2hCy3qF5uziHPAL?cluster=devnet)
+**Singularity 🗲 Energy Account**: [Open Explorer](https://solscan.io/account/Pd6sZ4RhDZLzpo4TgFNzxUeF7h82DB3aQt8JzkR4PQR?cluster=devnet)
 ```txt
-uyCaoEhfvuodu9QMy2Z3vBs5eZhG2hCy3qF5uziHPAL
+Pd6sZ4RhDZLzpo4TgFNzxUeF7h82DB3aQt8JzkR4PQR
 ```

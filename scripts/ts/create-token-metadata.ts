@@ -36,7 +36,7 @@ const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
 );
 
 // Subtitute in your token mint account
-const tokenMintAccount = new PublicKey("EBMSDNFFFQwUf4rXP41A9dkXUutx4BCRYkeNVBnCkEmH");
+const tokenMintAccount = new PublicKey("6kMYgotRgtZ2wfVE1ZyL3XM65ZXNDd2M78z4Y3jmep3Z");
 
 const metadataData = {
   name: "⚡ Energy",

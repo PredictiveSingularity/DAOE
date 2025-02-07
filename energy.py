@@ -24,7 +24,7 @@ from seahorse.prelude import *
 
 # This is your program's public key and it will update
 # automatically when you build the project.
-declare_id('3oRPcDGRFgNUWivN69c42DiNWExTXn5VhrhfTJx72QeW')
+declare_id('AX9GBXQEthuLMZM1otSLK5EuCJVVpSVzYGqcLa3Vf6i6')
 
 # ------------------------------------------------------------------------------
 # Definition of accounts and data structures
@@ -93,7 +93,7 @@ def emerge(
   # assert mint.key() == singularity_account.mint(), 'Energy\'s mint must match the Singularity account mint.'
   # assert singularity_account.key() == signer.key(), 'The Singularity account must have the same owner as the signer.'
   # assert singularity_account.amount() >= (mint.supply() * 16 // 100), 'Singularity account must have at least 16% of the energy supply.'
-  supply: u64 = energy_supply * 10 ** decimals
+  supply: u64 = energy_supply * u64(10) ** decimals
   timestamp: i64 = clock.unix_timestamp()
   # singularity_pickle: str = '789c6b60a99da20700056201c4' # {}
   # transformer_pickle: str = '789c6b60a99da20700056201c4' # {}

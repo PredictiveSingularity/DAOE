@@ -5,6 +5,8 @@ __pycache__/
 node_modules/
 package-lock.json
 PAPER.aux
+PAPER.bbl
+PAPER.blg
 PAPER.log
 PAPER.pdf
 PAPER.synctex.gz
