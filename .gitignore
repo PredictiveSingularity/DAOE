@@ -1,3 +1,4 @@
+# Private keys should not be checked in
 bossS7QLVNAmJgnTts82mANU64PNSAvwmXma7ATBFmu.json
 dotMhX2cAK52Nqb3Xha3T91HJ1hkBbwNTcoaitepVJc.json
 emc2e5K3j1zskPSFs9yQLrt1Ga9LVJDmgj6GugL4q6A.json
@@ -8,5 +9,7 @@ PAPER.aux
 PAPER.bbl
 PAPER.blg
 PAPER.log
-PAPER.pdf
+textput.log
+# PAPER.pdf
 PAPER.synctex.gz
+_PAPER.*
